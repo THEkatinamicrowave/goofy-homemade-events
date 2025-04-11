@@ -29,15 +29,17 @@ function postCreate() {
     vignette.amount = 1;
 	vignette.strength = 3;
 
-    camGame.addShader(dronk1);
-    camGame.addShader(dronk2);
-    camGame.addShader(dronk3);
-    camGame.addShader(chromatic);
-    camGame.addShader(vignette);
-    camHUD.addShader(dronk1);
-    camHUD.addShader(dronk2);
-    camHUD.addShader(dronk3);
-    camHUD.addShader(chromatic);
+    if (FlxG.save.data.goobermod_drunkmode) {
+        camGame.addShader(dronk1);
+        camGame.addShader(dronk2);
+        camGame.addShader(dronk3);
+        camGame.addShader(chromatic);
+        camGame.addShader(vignette);
+        camHUD.addShader(dronk1);
+        camHUD.addShader(dronk2);
+        camHUD.addShader(dronk3);
+        camHUD.addShader(chromatic);
+    }
 }
 
 function onNoteHit(event:NoteHitEvent) {
@@ -54,9 +56,11 @@ function onNoteHit(event:NoteHitEvent) {
 }
 
 function measureHit(measure:Int) {
-    if (Math.round(Math.random() * 50) == 1) {
-        blackout = true;
-        camGame.fade(FlxColor.BLACK, 0.5, FlxG.resetState());
+    if (FlxG.save.data.goobermod_drunkmode) {
+        if (Math.round(Math.random() * 50) == 1) {
+            blackout = true;
+            camGame.fade(FlxColor.BLACK, 0.5, FlxG.resetState());
+        }
     }
 }
 
@@ -64,12 +68,12 @@ function postUpdate(elapsed:Float) {
     if (FlxG.save.data.goobermod_drunkmode) {
         inst.pitch = vocals.pitch = CoolUtil.fpsLerp(inst.pitch, newpitch, 0.16);
         scrollSpeed = CoolUtil.fpsLerp(scrollSpeed, SONG.scrollSpeed * (1/newpitch), 0.08);
-    }
-    
-    if (!blackout) {
-        vignette.strength = CoolUtil.fpsLerp(vignette.strength, 3 + Math.random() * 3, 0.5);
-    } else {
-        vignette.strength = CoolUtil.fpsLerp(vignette.strength, 70, 0.2);
-        inst.volume = vocals.volume = CoolUtil.fpsLerp(inst.volume, 0, 0.2);
+
+        if (!blackout) {
+            vignette.strength = CoolUtil.fpsLerp(vignette.strength, 3 + Math.random() * 3, 0.5);
+        } else {
+            vignette.strength = CoolUtil.fpsLerp(vignette.strength, 70, 0.2);
+            inst.volume = vocals.volume = CoolUtil.fpsLerp(inst.volume, 0, 0.2);
+        }
     }
 }
