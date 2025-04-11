@@ -14,14 +14,14 @@ function postCreate() {
 }
 
 function beatHit(beat:Int) {
-    if (Math.random() * 10000 == 69) {
+    if (Math.round(Math.random() * 100) == 1) {
         trainKillsBF();
     }
 }
 
 function trainKillsBF() {
     trace("rip bozo");
-    
+
     trainBWAAAAAAAAAAAA.play();
     FlxTween.tween(shittyTrain, {x: boyfriend.x - shittyTrain.width + boyfriend.width}, 1, { onComplete: function() {
 		persistentUpdate = false;
