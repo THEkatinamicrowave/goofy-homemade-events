@@ -20,6 +20,7 @@ var trainCooldown:Int = 0;
 
 var shittyTrain:FlxSprite;
 var trainBWAAAAAAAAAAAA:FlxSound;
+var trainRand:Int;
 
 function create() {
 	// defaultCamZoom = 0.5;
@@ -37,6 +38,7 @@ function postCreate() {
     add(shittyTrain);
 
     trainBWAAAAAAAAAAAA = FlxG.sound.load(Paths.sound("fuckingtrainhorn"));
+	trainBWAAAAAAAAAAAA.volume = 5;
 }
 
 function beatHit(curBeat:Int) {
@@ -55,6 +57,11 @@ function beatHit(curBeat:Int) {
 	{
 		trainCooldown = FlxG.random.int(-4, 0);
 		trainStart();
+	}
+
+	if (curBeat >= 0) {
+		trainRand = Math.round(Math.random() * Math.ceil((inst.length / 1000) * (Conductor.bpm / 60)));
+		if (trainRand == 1) trainKillsBF();
 	}
 }
 
@@ -117,8 +124,6 @@ function trainReset():Void
 }
 
 function trainKillsBF() {
-    trace("rip bozo");
-
     trainBWAAAAAAAAAAAA.play();
     FlxTween.tween(shittyTrain, {x: boyfriend.x - shittyTrain.width + boyfriend.width}, 1, { onComplete: function() {
 		persistentUpdate = false;
