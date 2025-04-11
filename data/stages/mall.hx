@@ -2,8 +2,6 @@
 var topPos:FlxPoint = FlxPoint.get(-400, -60);
 var bottomPos:FlxPoint = FlxPoint.get(-297, 120);
 
-
-
 function beatHit(beat:Int) {
 	if (beat >= 0) {
 		var dir:Int = switch (beat % 2) {
