@@ -1,0 +1,5 @@
+<!DOCTYPE codename-engine-mod-settings>
+<menu name="Goofy Stuff" desc="random shit I didn't want to be on by default">
+    <checkbox id="goobermod_drunkmode" name="Drunk" />
+    <checkbox id="goobermod_gaymode" name="Gay" />
+</menu>

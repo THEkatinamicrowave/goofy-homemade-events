@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<TextureAtlas imagePath="pong.png" width="572" height="637">
+    <SubTexture name="pong basic0000" x="0" y="0" width="547" height="295" frameX="-12" frameY="-18" frameWidth="572" frameHeight="342" />
+    <SubTexture name="pong white0000" x="0" y="295" width="572" height="342" />
+</TextureAtlas>
