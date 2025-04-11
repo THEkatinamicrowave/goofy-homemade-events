@@ -13,6 +13,5 @@ function postCreate() {
 
 function postUpdate(elapsed:Float) {
     hue = FlxMath.wrap(100 * (hue + 2*elapsed), 0, 1000) / 100;
-    trace(hue);
     gay.hue = hue;
 }
