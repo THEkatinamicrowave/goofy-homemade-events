@@ -43,10 +43,17 @@ function postUpdate(elapsed:Float) {
             };
     
             for (c in strum.characters) {
-                c.scale.set(CoolUtil.fpsLerp(c.scale.x, propScale.x, 0.1), CoolUtil.fpsLerp(c.scale.y, propScale.y, 0.1));
-                c.skew.set(CoolUtil.fpsLerp(c.skew.x, 0, 0.1), CoolUtil.fpsLerp(c.skew.y, 0, 0.1));
-    
-                c.setPosition(CoolUtil.fpsLerp(c.x, propPos.x, 0.15), CoolUtil.fpsLerp(c.y, propPos.y, 0.15));
+                if (c.animation.name == "idle") {
+                    c.scale.set(propScale.x, propScale.y);
+                    c.skew.set(0, 0);
+
+                    c.setPosition(propPos.x, propPos.y);
+                } else {
+                    c.scale.set(CoolUtil.fpsLerp(c.scale.x, propScale.x, 0.1), CoolUtil.fpsLerp(c.scale.y, propScale.y, 0.1));
+                    c.skew.set(CoolUtil.fpsLerp(c.skew.x, 0, 0.1), CoolUtil.fpsLerp(c.skew.y, 0, 0.1));
+        
+                    c.setPosition(CoolUtil.fpsLerp(c.x, propPos.x, 0.15), CoolUtil.fpsLerp(c.y, propPos.y, 0.15));
+                }
             }
         }
     }
