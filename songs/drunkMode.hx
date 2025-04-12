@@ -10,10 +10,14 @@ var chromatic:CustomShader;
 var vignette:CustomShader;
 
 function postCreate() {
-    for (shader in [dronk1, dronk2, dronk3]) {
-        shader = new CustomShader("engine/editorBlur");
-        shader.strength = 10;
-    }
+    dronk1 = new CustomShader("engine/editorBlur");
+    dronk1.strength = 10;
+
+    dronk2 = new CustomShader("engine/editorBlur");
+    dronk2.strength = 10;
+
+    dronk3 = new CustomShader("engine/editorBlur");
+    dronk3.strength = 10;
 
     chromatic = new CustomShader("chromaticAberration");
     chromatic.redOff = [0.005, 0];
@@ -26,7 +30,9 @@ function postCreate() {
 	vignette.strength = 3;
 
     if (FlxG.save.data.goobermod_drunkmode) {
-        for (shader in [dronk1, dronk2, dronk3, chromatic]) for (cam in [camGame, camHUD]) cam.addShader(shader);
+        for (shader in [dronk1, dronk2, dronk3, chromatic])
+            for (cam in [camGame, camHUD])
+                cam.addShader(shader);
         camGame.addShader(vignette);
     }
 }
