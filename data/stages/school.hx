@@ -17,34 +17,6 @@ function create() {
 		bgGirls.animation.addByIndices('danceRight', 'BG fangirls dissuaded', CoolUtil.numberArray(30, 15), "", 24, false);
 	}
 	bgGirls.animation.play("danceLeft", true); // horrible fix, please fix later
-
-	senpaiLeft = FlxG.sound.load(Paths.sound("senpaiBITCH"));
-	senpaiDown = FlxG.sound.load(Paths.sound("senpaiPUSSY"));
-	senpaiUp = FlxG.sound.load(Paths.sound("senpaiFUCK"));
-	senpaiRight = FlxG.sound.load(Paths.sound("senpaiSHIT"));
-	senpaiFUCKINDICK = FlxG.sound.load(Paths.sound("fuckin-dick"));
-
-	soundArray = [senpaiLeft, senpaiDown, senpaiUp, senpaiRight];
-}
-
-function onNoteHit(event:NoteHitEvent) {
-	if (PlayState.SONG.meta.name.toLowerCase() == "roses") {
-		if (event.note.strumLine.data.type == 0) {
-			vocals.volume = 0;
-			event.preventVocalsUnmute();
-		
-			if (!event.note.isSustainNote) {
-				for (sound in soundArray) {
-					sound.stop();
-					soundArray[event.direction].play();
-				}
-			}
-		}
-
-		if (strumLines.members[0].notes.members.length + strumLines.members[1].notes.members.length == 2) {
-			senpaiFUCKINDICK.play();
-		}
-	}
 }
 
 function beatHit(beat:Int) {

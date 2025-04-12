@@ -6,12 +6,7 @@ var senpaiRight:FlxSound;
 
 var soundArray:Array<FlxSound>;
 
-function create() {
-	isSpooky = true;
-
-	// Make transition work between school types
-	if(PlayState.smoothTransitionData?.stage == "school") PlayState.smoothTransitionData.stage = curStage;
-    
+function postCreate() {
 	senpaiLeft = FlxG.sound.load(Paths.sound("senpaiBITCH"));
 	senpaiDown = FlxG.sound.load(Paths.sound("senpaiPUSSY"));
 	senpaiUp = FlxG.sound.load(Paths.sound("senpaiFUCK"));
