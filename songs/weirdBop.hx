@@ -2,24 +2,30 @@
 import flixel.FlxObject;
 
 var dadPos:FlxObject;
-var gfPos:FlxObject;
 var bfPos:FlxObject;
+var gfPos:FlxObject;
 
 var dadScale:FlxPoint;
-var gfScale:FlxPoint;
 var bfScale:FlxPoint;
+var gfScale:FlxPoint;
 
 function postCreate() {
-    dadPos = new FlxObject(dad.x, dad.y);
-    gfPos = new FlxObject(gf.x, gf.y);
-    bfPos = new FlxObject(boyfriend.x, boyfriend.y);
+    if (dad != null) {
+        dadPos = new FlxObject(dad.x, dad.y);
+        dadScale = FlxPoint.get(dad.scale.x, dad.scale.y);
+    }
 
-    dadScale = FlxPoint.get(dad.scale.x, dad.scale.y);
-    gfScale = FlxPoint.get(gf.scale.x, gf.scale.y);
-    bfScale = FlxPoint.get(boyfriend.scale.x, boyfriend.scale.y);
+    if (boyfriend != null) {
+        bfPos = new FlxObject(boyfriend.x, boyfriend.y);
+        bfScale = FlxPoint.get(boyfriend.scale.x, boyfriend.scale.y);
+    }
 
-    for (pos in [dadPos, gfPos, bfPos])
-        add(pos);
+    if (gf != null) {
+        gfPos = new FlxObject(gf.x, gf.y);
+        gfScale = FlxPoint.get(gf.scale.x, gf.scale.y);
+    }
+
+    for (pos in [dadPos, gfPos, bfPos]) if (pos != null) add(pos);
 }
 
 function postUpdate(elapsed:Float) {
