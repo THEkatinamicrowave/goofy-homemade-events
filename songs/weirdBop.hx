@@ -43,7 +43,7 @@ function postUpdate(elapsed:Float) {
             };
     
             for (c in strum.characters) {
-                if (c.animation.name == "idle") {
+                if (c.animation.name == "idle" || c.animation.name == "danceLeft" || c.animation.name == "danceRight") {
                     c.scale.set(propScale.x, propScale.y);
                     c.skew.set(0, 0);
 

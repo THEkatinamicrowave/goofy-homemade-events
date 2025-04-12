@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character y="200" sprite="spooky" icon="spooky" color="#C5995A">
+<character y="200" sprite="spooky" icon="spooky" color="#C5995A" holdTime="0.8">
     <anim name="idle" anim="spooky dance idle" x="0" y="0" fps="144" loop="true" indices="0,6,8,6"/>
 	<anim name="singUP" anim="spooky UP NOTE" x="-20" y="26" fps="144" loop="false" indices="0"/>
 	<anim name="singLEFT" anim="note sing left" x="119" y="-11" fps="144" loop="false" indices="0"/>
