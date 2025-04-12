@@ -7,6 +7,8 @@ var senpaiUp:FlxSound;
 var senpaiRight:FlxSound;
 var senpaiFUCKINDICK:FlxSound;
 
+var soundArray:Array<FlxSound>;
+
 function create() {
 	if (PlayState.SONG.meta.name.toLowerCase() == "roses") {
 		bgGirls.animation.remove("danceLeft");
@@ -20,43 +22,36 @@ function create() {
 	senpaiDown = FlxG.sound.load(Paths.sound("senpaiPUSSY"));
 	senpaiUp = FlxG.sound.load(Paths.sound("senpaiFUCK"));
 	senpaiRight = FlxG.sound.load(Paths.sound("senpaiSHIT"));
-
 	senpaiFUCKINDICK = FlxG.sound.load(Paths.sound("fuckin-dick"));
-}
 
-function onDadHit(event:NoteHitEvent) {
-	if (PlayState.SONG.meta.name.toLowerCase() == "roses" && !event.note.isSustainNote) {
-		event.preventVocalsUnmute();
-		vocals.volume = 0;
-	
-		for (sound in [senpaiLeft, senpaiDown, senpaiUp, senpaiRight]) sound.stop();
-	
-		switch event.note.strumID {
-			case 0:
-				senpaiLeft.play();
-			case 1:
-				senpaiDown.play();
-			case 2:
-				senpaiUp.play();
-			case 3:
-				senpaiRight.play();
-		}
-	}
+	soundArray = [senpaiLeft, senpaiDown, senpaiUp, senpaiRight];
 }
 
 function onNoteHit(event:NoteHitEvent) {
-	if (strumLines.members[0].notes.members.length + strumLines.members[1].notes.members.length == 2) {
-		senpaiFUCKINDICK.play();
+	if (PlayState.SONG.meta.name.toLowerCase() == "roses") {
+		if (event.note.strumLine.data.type == 0) {
+			vocals.volume = 0;
+			event.preventVocalsUnmute();
+		
+			if (!event.note.isSustainNote) {
+				for (sound in soundArray) {
+					sound.stop();
+					soundArray[event.direction].play();
+				}
+			}
+		}
+
+		if (strumLines.members[0].notes.members.length + strumLines.members[1].notes.members.length == 2) {
+			senpaiFUCKINDICK.play();
+		}
 	}
 }
 
 function beatHit(beat:Int) {
 	if (beat >= 0) {
 		var dir:Int = switch (beat % 2) {
-			case 0:
-				-1;
-			case 1:
-				1;
+			case 0: -1;
+			case 1: 1;
 		}
 	
 		FlxTween.tween(bgGirls, {y: girlsPos.y - 100}, 30 / Conductor.bpm, {

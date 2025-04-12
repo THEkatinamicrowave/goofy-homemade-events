@@ -26,20 +26,14 @@ function postUpdate(elapsed:Float) {
     if (Conductor.songPosition > 0) {
         for (strum in strumLines.members) {
             var propPos:FlxObject = switch (strum.data.type) {
-                case 0:
-                    dadPos;
-                case 1:
-                    bfPos;
-                case 2:
-                    gfPos;
+                case 0: dadPos;
+                case 1: bfPos;
+                case 2: gfPos;
             };
             var propScale:FlxPoint = switch (strum.data.type) {
-                case 0:
-                    dadScale;
-                case 1:
-                    bfScale;
-                case 2:
-                    gfScale;
+                case 0: dadScale;
+                case 1: bfScale;
+                case 2: gfScale;
             };
     
             for (c in strum.characters) {
@@ -54,20 +48,14 @@ function postUpdate(elapsed:Float) {
 
 function onNoteHit(event:NoteHitEvent) {
     var propPos:FlxObject = switch (event.note.strumLine.data.type) {
-        case 0:
-            dadPos;
-        case 1:
-            bfPos;
-        case 2:
-            gfPos;
+        case 0: dadPos;
+        case 1: bfPos;
+        case 2: gfPos;
     };
     var propScale:FlxPoint = switch (event.note.strumLine.data.type) {
-        case 0:
-            dadScale;
-        case 1:
-            bfScale;
-        case 2:
-            gfScale;
+        case 0: dadScale;
+        case 1: bfScale;
+        case 2: gfScale;
     };
 
     if (!event.note.isSustainNote) {
@@ -94,24 +82,4 @@ function onNoteHit(event:NoteHitEvent) {
 
 function onPlayerMiss(event:NoteMissEvent) {
     event.character.skew.set((Math.random() * 178) - 89, (Math.random() * 178) - 89);
-}
-
-function onGameOver(event:GameOverEvent) {
-    event.cancel();
-
-    if (event.charToUse != null)
-        event.charToUse.stunned = true;
-
-    persistentUpdate = false;
-    paused = true;
-    
-	vocals.stop();
-	if (FlxG.sound.music != null)
-		FlxG.sound.music.stop();
-	for (strumLine in strumLines.members) strumLine.vocals.stop();
-
-    boyfriend.alpha = 0;
-    FlxTween.tween(camHUD, { alpha: 0 }, 1);
-
-    openSubState(new GameOverSubstate(event.x, event.y, event.deathCharID, event.isPlayer, event.gameOverSong, event.lossSFX, event.retrySFX));
 }

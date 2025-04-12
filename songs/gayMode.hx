@@ -5,10 +5,7 @@ var hue:Float = 0;
 function postCreate() {
     gay = new CustomShader("gay");
 
-    if (FlxG.save.data.goobermod_gaymode) {
-        camGame.addShader(gay);
-        camHUD.addShader(gay);
-    }
+    if (FlxG.save.data.goobermod_gaymode) for (cam in [camGame, camHUD]) cam.addShader(gay);
 }
 
 function postUpdate(elapsed:Float) {

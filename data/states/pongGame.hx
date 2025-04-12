@@ -1,5 +1,8 @@
 //
-var canMove:Bool = true;
+import funkin.backend.utils.CoolUtil;
+
+var score:Int = 0;
+var scoreText:Alphabet;
 
 var ball:HealthIcon;
 
@@ -11,22 +14,19 @@ var paddles:FlxGroup;
 var paddle1:FlxSprite;
 var paddle2:FlxSprite;
 
-var score:Int = 0;
-var scoreText:Alphabet;
-
 function create() {
-    borders = new FlxGroup();
-    add(borders);
-    
-    paddles = new FlxGroup();
-    add(paddles);
-    
+    scoreText = new Alphabet(0, 0, score, true);
+    scoreText.screenCenter();
+
     ball = new HealthIcon("dad");
     ball.scale.set(0.3, 0.3);
     ball.updateHitbox();
     ball.screenCenter();
-    ball.velocity.set(-700, 700);
+    ball.velocity.set(-400, 400);
     ball.elasticity = 1;
+    
+    borders = new FlxGroup();
+    add(borders);
 
     ceil = new FlxSprite().loadGraphic(Paths.image("game/healthbar"));
     ceil.setGraphicSize(FlxG.width, 20);
@@ -41,6 +41,9 @@ function create() {
     floor.screenCenter();
     floor.y = FlxG.height - floor.height/2;
     floor.immovable = true;
+    
+    paddles = new FlxGroup();
+    add(paddles);
 
     paddle1 = new FlxSprite().loadGraphic(Paths.image("game/coolBar"));
     paddle1.setGraphicSize(20, 75);
@@ -58,31 +61,20 @@ function create() {
     paddle2.immovable = true;
     paddle2.color = 0xFF00FF00;
 
-    scoreText = new Alphabet(0, 0, score, true);
-    scoreText.scale.set(2, 2);
-    scoreText.screenCenter();
-
+    add(scoreText);
     add(ball);
     borders.add(ceil);
     borders.add(floor);
     paddles.add(paddle1);
     paddles.add(paddle2);
-    add(scoreText);
 }
 
 function update(elapsed:Float) {
-    if (canMove) {
-        movePaddle((controls.UP && paddle1.y > ceil.y + ceil.height ? -1 : 0) + (controls.DOWN && paddle1.y + paddle1.height < floor.y ? 1 : 0));
-    }
+    movePaddle((controls.UP && paddle2.y > ceil.y + ceil.height ? -1 : 0) + (controls.DOWN && paddle2.y + paddle2.height < floor.y ? 1 : 0));
+    ball.velocity.set(ball.velocity.x + (ball.velocity.x < 0 ? -60*elapsed : 60*elapsed), ball.velocity.y + (ball.velocity.y < 0 ? -60*elapsed : 60*elapsed));
 
     // AI JUMPSCARE
-    if (ball.y < paddle1.y + paddle1.height / 2 && paddle1.y > ceil.y + ceil.height) {
-        paddle1.velocity.y = -700;
-    } else if (ball.y > paddle1.y + paddle1.height / 2 && paddle1.y + paddle1.height < floor.y) {
-        paddle1.velocity.y = 700;
-    } else {
-        paddle1.velocity.y = 0;
-    }
+    paddle1.velocity = (ball.y < paddle1.y + paddle1.height / 2 && paddle1.y > ceil.y + ceil.height) ? -700 : ((ball.y > paddle1.y + paddle1.height / 2 && paddle1.y + paddle1.height < floor.y) ? 700 : 0);
 
     if (controls.BACK) {
         CoolUtil.playMenuSFX(2);
@@ -94,27 +86,21 @@ function update(elapsed:Float) {
 
     if (ball.x < -ball.width) {
         score += 1;
-        updateScoreText();
+        scoreText.text = score;
         reset();
     } else if (ball.x > FlxG.width) {
         if (score != 0) score -= 1;
-        updateScoreText();
+        scoreText.text = score;
         reset();
     }
 }
 
-function movePaddle(dir:Int) {
+function movePaddle(dir:Int)
     paddle2.velocity.y = dir * 700;
-}
-
-function updateScoreText() {
-    scoreText.text = score;
-    scoreText.scale.set(2, 2);
-}
 
 function reset() {
     ball.screenCenter();
-    ball.velocity.set(-700, 700);
+    ball.velocity.set(-400, 400);
     paddle1.screenCenter(FlxAxes.Y);
     paddle2.screenCenter(FlxAxes.Y);
 }
