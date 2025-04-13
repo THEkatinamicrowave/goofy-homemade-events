@@ -28,7 +28,7 @@ function beatHit(beat:Int) {
 	
 		FlxTween.tween(bgGirls, {y: girlsPos.y - 100}, 30 / Conductor.bpm, {
 			ease: FlxEase.circOut,
-			onComplete: () -> FlxTween.tween(bgGirls, {y: girlsPos.y + 100}, 30 / Conductor.bpm,
+			onComplete: () -> FlxTween.tween(bgGirls, {y: girlsPos.y}, 30 / Conductor.bpm,
 				{ease: FlxEase.circIn})
 		});
 	
