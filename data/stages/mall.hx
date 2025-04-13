@@ -13,7 +13,7 @@ function beatHit(beat:Int) {
 	
 		FlxTween.tween(bottomBoppers, {y: bottomPos.y - 100}, 30 / Conductor.bpm, {
 			ease: FlxEase.circOut,
-			onComplete: () -> FlxTween.tween(bottomBoppers, {y: bottomPos.y + 100}, 30 / Conductor.bpm,
+			onComplete: () -> FlxTween.tween(bottomBoppers, {y: bottomPos.y}, 30 / Conductor.bpm,
 				{ease: FlxEase.circIn})
 		});
 	
@@ -25,7 +25,7 @@ function beatHit(beat:Int) {
 
         FlxTween.tween(upperBoppers, {y: topPos.y - 25}, 30 / Conductor.bpm, {
 			ease: FlxEase.circOut,
-			onComplete: () -> FlxTween.tween(upperBoppers, {y: topPos.y + 100}, 30 / Conductor.bpm,
+			onComplete: () -> FlxTween.tween(upperBoppers, {y: topPos.y}, 30 / Conductor.bpm,
 				{ease: FlxEase.circIn})
 		});
 	
