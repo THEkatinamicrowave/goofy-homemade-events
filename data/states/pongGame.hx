@@ -22,7 +22,6 @@ function create() {
     ball.scale.set(0.3, 0.3);
     ball.updateHitbox();
     ball.screenCenter();
-    ball.velocity.set(-400, 400);
     ball.elasticity = 1;
     
     borders = new FlxGroup();
@@ -67,6 +66,8 @@ function create() {
     borders.add(floor);
     paddles.add(paddle1);
     paddles.add(paddle2);
+
+    reset();
 }
 
 function update(elapsed:Float) {
@@ -74,7 +75,7 @@ function update(elapsed:Float) {
     ball.velocity.set(ball.velocity.x + (ball.velocity.x < 0 ? -60*elapsed : 60*elapsed), ball.velocity.y + (ball.velocity.y < 0 ? -60*elapsed : 60*elapsed));
 
     // AI JUMPSCARE
-    paddle1.velocity = (ball.y < paddle1.y + paddle1.height / 2 && paddle1.y > ceil.y + ceil.height) ? -700 : ((ball.y > paddle1.y + paddle1.height / 2 && paddle1.y + paddle1.height < floor.y) ? 700 : 0);
+    paddle1.velocity.y = (ball.y < paddle1.y + paddle1.height / 2 && paddle1.y > ceil.y + ceil.height) ? -700 : ((ball.y > paddle1.y + paddle1.height / 2 && paddle1.y + paddle1.height < floor.y) ? 700 : 0);
 
     if (controls.BACK) {
         CoolUtil.playMenuSFX(2);
