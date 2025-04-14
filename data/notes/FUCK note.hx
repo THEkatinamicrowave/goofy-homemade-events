@@ -11,6 +11,7 @@ function onNoteHit(event:NoteHitEvent) {
         vocals.volume = 0;
         event.preventVocalsUnmute();
 
+        FUCK.stop();
         FUCK.play();
     }
 }
