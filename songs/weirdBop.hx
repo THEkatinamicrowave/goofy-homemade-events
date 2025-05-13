@@ -44,7 +44,7 @@ function postUpdate(elapsed:Float) {
     
             for (c in strum.characters) {
                 if (c.animation.name == "idle" || c.animation.name == "danceLeft" || c.animation.name == "danceRight")
-                    scaleSkewSprite(c, propPos, propScale, 0, 1, 1);
+                    scaleSkewSprite(c, propPos, propScale, 0, propScale.x, propScale.y);
                 else
                     scaleSkewSprite(c, propPos, propScale, CoolUtil.fpsLerp(c.skew.x, 0, 0.16), CoolUtil.fpsLerp(c.scale.x, propScale.x, 0.16), CoolUtil.fpsLerp(c.scale.y, propScale.y, 0.16));
             }
@@ -66,10 +66,10 @@ function onNoteHit(event:NoteHitEvent) {
 
     if (!event.note.isSustainNote) {
         switch (event.note.strumID) {
-            case 0: scaleSkewSprite(event.character, propPos, propScale, 60, 1, 1);
-            case 1: scaleSkewSprite(event.character, propPos, propScale, 0, 2, 0.5);
-            case 2: scaleSkewSprite(event.character, propPos, propScale, 0, 0.5, 1.5);
-            case 3: scaleSkewSprite(event.character, propPos, propScale, -60, 1, 1);
+            case 0: scaleSkewSprite(event.character, propPos, propScale, 60, propScale.x, propScale.y);
+            case 1: scaleSkewSprite(event.character, propPos, propScale, 0, propScale.x * 2, propScale.y * 0.5);
+            case 2: scaleSkewSprite(event.character, propPos, propScale, 0, propScale.x * 0.5, propScale.y * 1.5);
+            case 3: scaleSkewSprite(event.character, propPos, propScale, -60, propScale.x, propScale.y);
         }
     }
 }
@@ -79,7 +79,7 @@ function scaleSkewSprite(sprite:FlxSprite, sPos:FlxPoint, sScale:FlxPoint, skew:
     sprite.skew.set(skew, 0);
     sprite.setPosition(
         sPos.x - (sScale.x * sprite.height * Math.tan(skew * Math.PI / 180)) / 2,
-        sPos.y + (sScale.y * sprite.height * (1 - scaleY) / 2)
+        sPos.y + (sScale.y * sprite.height * (sScale.y - scaleY) / (sScale.y * 2))
     );
 }
 
