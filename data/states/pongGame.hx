@@ -23,6 +23,7 @@ function create() {
     ball.updateHitbox();
     ball.screenCenter();
     ball.elasticity = 1;
+    ball.moves = true;
     
     borders = new FlxGroup();
     add(borders);
