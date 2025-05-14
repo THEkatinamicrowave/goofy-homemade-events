@@ -1,5 +1,3 @@
 //
 function onSelectItem(event:NameEvent)
-    switch event.name {
-        case "pong": FlxG.switchState(new ModState("pongGame"));
-    }
+    if (event.name == "pong") FlxG.switchState(new ModState("pongGame"));
