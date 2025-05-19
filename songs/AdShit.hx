@@ -52,7 +52,7 @@ function postUpdate(elapsed:Float) {
 }
 
 function beatHit(beat:Int)
-    if (!isTimerStarted && Math.round(Math.random() * 5) == 0) {
+    if (!isTimerStarted && Math.round(Math.random() * 100) == 0) {
         isTimerStarted = true;
         adStartFlxTimer.start(5, ()->doAdShit());
     }
