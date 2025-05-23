@@ -52,7 +52,7 @@ function postUpdate(elapsed:Float) {
 }
 
 function beatHit(beat:Int)
-    if (!isTimerStarted && Math.round(Math.random() * 100) == 0) {
+    if (!isTimerStarted && FlxG.random.int(0, 100) == 0) {
         isTimerStarted = true;
         adStartFlxTimer.start(5, ()->doAdShit());
     }
@@ -65,7 +65,7 @@ function doAdShit() {
     for (s in strumLines.members) s.vocals.pause();
 
     ad.visible = true;
-    if (ad.load(Paths.video("ads/" + Path.withoutExtension(adBank[Math.round(Math.random() * (adBank.length-1))])))) {
+    if (ad.load(Paths.video("ads/" + Path.withoutExtension(adBank[FlxG.random.int(0, adBank.length-1)])))) {
         ad.visible = true;
         new FlxTimer().start(0.001, ()->ad.play());
         adSkipFlxTimer.start(5, ()->{canSkip = true;});

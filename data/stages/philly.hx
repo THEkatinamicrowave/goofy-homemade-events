@@ -60,7 +60,7 @@ function beatHit(curBeat:Int) {
 	}
 
 	if (curBeat >= 0) {
-		trainRand = Math.round(Math.random() * Math.ceil((inst.length / 1000) * (Conductor.bpm / 60)));
+		trainRand = FlxG.random.int(0, Math.ceil((inst.length / 1000) * (Conductor.bpm / 60)));
 		if (trainRand == 1) trainKillsBF();
 	}
 }

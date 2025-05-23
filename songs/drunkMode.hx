@@ -52,7 +52,7 @@ function onNoteHit(event:NoteHitEvent) {
 
 function measureHit(measure:Int) {
     if (FlxG.save.data.goobermod_drunkmode) {
-        if (Math.round(Math.random() * 50) == 1) {
+        if (FlxG.random.int(0, 50) == 1) {
             blackout = true;
             camGame.fade(FlxColor.BLACK, 0.5, FlxG.resetState());
         }

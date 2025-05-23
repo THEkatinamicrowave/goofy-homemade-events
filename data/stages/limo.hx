@@ -59,7 +59,7 @@ function beatHit(curBeat:Int) {
         }
 	}
 
-	moonChance = Math.round(Math.random() * Math.ceil((inst.length / 1000) * (Conductor.bpm / 60)) * 10);
+	moonChance = FlxG.random.int(0, Math.ceil((inst.length / 1000) * (Conductor.bpm / 60)) * 10);
 
     if (!moonActive)
 		if (moonChance == 0)
