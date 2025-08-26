@@ -45,6 +45,12 @@ function beatHit(curBeat:Int) {
 		fastCarDrive();
 
     if (curBeat >= 0) {
+		moonChance = FlxG.random.int(0, Math.ceil((inst.length / 1000) * (Conductor.bpm / 60)) * 10);
+
+		if (!moonActive)
+			if (moonChance == 0)
+				bloodMoon();
+
 		var dir:Int = switch (curBeat % 2) {
 			case 0: -1;
 			case 1: 1;
@@ -58,12 +64,6 @@ function beatHit(curBeat:Int) {
             });
         }
 	}
-
-	moonChance = FlxG.random.int(0, Math.ceil((inst.length / 1000) * (Conductor.bpm / 60)) * 10);
-
-    if (!moonActive)
-		if (moonChance == 0)
-			bloodMoon();
 }
 
 function resetFastCar()
