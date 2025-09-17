@@ -20,6 +20,7 @@ var trainCooldown:Int = 0;
 
 var shittyTrain:FlxSprite;
 var trainBWAAAAAAAAAAAA:FlxSound;
+var trainPeter:FlxSound;
 var trainRand:Int;
 
 function create() {
@@ -39,6 +40,9 @@ function postCreate() {
 
     trainBWAAAAAAAAAAAA = FlxG.sound.load(Paths.sound("fuckingtrainhorn"));
 	trainBWAAAAAAAAAAAA.volume = 5;
+
+	trainPeter = FlxG.sound.load(Paths.sound("heylois"));
+	trainPeter.volume = 3;
 }
 
 function beatHit(curBeat:Int) {
@@ -61,7 +65,7 @@ function beatHit(curBeat:Int) {
 
 	if (curBeat >= 0) {
 		trainRand = FlxG.random.int(0, Math.ceil((inst.length / 1000) * (Conductor.bpm / 60)));
-		if (trainRand == 1) trainKillsBF();
+		if (trainRand == 1) FlxG.random.bool(1) ? trainPETER() : trainKillsBF();
 	}
 }
 
@@ -133,4 +137,25 @@ function trainKillsBF() {
         gameOver();
         trainBWAAAAAAAAAAAA.stop();
     }});
+}
+
+function trainPETER() {
+	trainPeter.play();
+	shittyTrain.loadGraphic(Paths.image("stages/philly/petertrain"));
+    shittyTrain.flipX = true;
+    shittyTrain.scale.set(2.3, 2.3);
+    shittyTrain.updateHitbox();
+    shittyTrain.setPosition(-14000, 40);
+
+	new FlxTimer().start(1.22, ()->{
+    	trainBWAAAAAAAAAAAA.play();
+		FlxTween.tween(shittyTrain, {x: boyfriend.x - shittyTrain.width + boyfriend.width}, 1, { onComplete: function() {
+			persistentUpdate = false;
+			persistentDraw = false;
+			paused = true;
+
+			gameOver();
+			trainBWAAAAAAAAAAAA.stop();
+		}});
+	});
 }
